@@ -85,6 +85,7 @@ function restartGame() {
             '', '', ''
         ];
     currentPlayer = 'x';
+    playCount = 0;
     const tiles = document.getElementsByClassName('tile');
     document.getElementById(`line-container`).innerHTML = ``;
     for (let tile of tiles) {
