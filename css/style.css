@@ -1,0 +1,263 @@
+:root {
+    --circle-radius: 50;
+    --circle-dash-size: 314.375;
+    --game-color: #c3d1e4;
+    --bg-color: #212529;
+    --tile-size: 150px;
+    --line-width: 15px;
+    --board-width: calc(calc(var(--tile-size) * 3) + calc(var(--line-width) * 2));
+    --line-margin: calc(var(--board-width) * .684);
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    transition: background-color .5s;
+}
+
+#line-container {
+    z-index: 20;
+    position: absolute;
+    pointer-events: none;
+    width: var(--board-width);
+    height: var(--board-width);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.win-line-wrapper {
+    width: var(--line-width);
+    background-color: transparent !important;
+    height: var(--board-width);
+    border: none;
+    display: block;
+}
+
+.win-line {
+    width: calc(var(--line-width) - 2px);
+    background-color: var(--game-color);
+    height: var(--board-width);
+    border: 1px solid var(--game-color);
+    animation: line-anim .5s ease-out;
+    transition: background-color .5s;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, var(--tile-size));
+    grid-template-rows: repeat(3, var(--tile-size));
+    gap: var(--line-width);
+    background-color: var(--game-color);
+    transition: background-color .5s;
+}
+
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    cursor: pointer;
+    transition: background-color .5s;
+}
+
+#circle-svg {
+    rotate: -90deg;
+}
+
+circle {
+    stroke: var(--game-color);
+    stroke-width: var(--line-width);
+    stroke-dasharray: var(--circle-dash-size) 0;
+    stroke-dashoffset: 0 1;
+    animation: circle-anim .5s ease-out;
+    transition: stroke .5s;
+}
+
+.cross {
+    z-index: 1;
+    background: var(--game-color);
+    height: 135px;
+    width: var(--line-width);
+    position: absolute;
+    rotate: 45deg;
+    animation: cross-anim .4s ease-out;
+    transition: background-color .5s;
+}
+
+.cross:after {
+    z-index: 5;
+    background: var(--game-color);
+    content: "";
+    height: 135px;
+    width: var(--line-width);
+    position: absolute;
+    rotate: 90deg;
+    animation: cross-anim .4s ease-out;
+    transition: background-color .5s;
+}
+
+#h-t,
+#h-b,
+#h-c {
+    rotate: -90deg;
+    height: var(--board-width);
+}
+
+#d,
+#i-d,
+#l-d,
+#l-i-d {
+    height: calc(var(--board-width) * 1.26);
+}
+
+#i-d {
+    rotate: 45deg;
+}
+
+#d {
+    rotate: -45deg;
+}
+
+#v-c {
+    height: var(--board-width);
+}
+
+#h-c {
+    height: var(--board-width);
+}
+
+#v-l {
+    margin-right: var(--line-margin);
+    height: var(--board-width);
+}
+
+#v-r {
+    margin-left: var(--line-margin);
+    height: var(--board-width);
+}
+
+#h-t {
+    margin-bottom: var(--line-margin);
+    height: var(--board-width);
+}
+
+#h-b {
+    margin-top: var(--line-margin);
+    height: var(--board-width);
+}
+
+@keyframes circle-anim {
+    from {
+        stroke-dasharray: 0 var(--circle-dash-size);
+        stroke-dashoffset: 1 0;
+    }
+}
+
+@keyframes cross-anim {
+    from {
+        height: 0px;
+    }
+}
+
+@keyframes line-anim {
+    from {
+        height: 0px;
+    }
+}
+
+@keyframes reload-anim-1 {
+    to {
+        rotate: 360deg;
+    }
+}
+
+@keyframes reload-anim-2 {
+    to {
+        rotate: 360deg;
+    }
+}
+
+#reload-btn-box {
+    position: absolute;
+    z-index: 30;
+    top: 20px;
+    left: 20px;
+}
+
+#reload-btn-box:focus {
+    animation: reload-anim-1 .5s ease-out;
+}
+
+#reload-btn-box:active {
+    animation: none;
+}
+
+#reload-btn {
+    height: 70px;
+    width: 70px;
+    fill: var(--game-color);
+    cursor: pointer;
+    transition: fill .5s;
+}
+
+.theme-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.theme-container:hover {
+    opacity: 0.8;
+}
+
+.shadow-dark {
+    background: linear-gradient(145deg, #23282c, #1e2125);
+    box-shadow: 17px 17px 23px #1a1d20,
+        -17px -17px 23px #282d32, inset 5px 5px 4px #1e2226,
+        inset -5px -5px 4px #24282c;
+}
+
+.shadow-light {
+    box-shadow: 7px 7px 15px -10px #bbcfda, -4px -4px 13px #ffffff,
+        inset 7px 7px 3px rgba(209, 217, 230, 0.35),
+        inset -11px -11px 3px rgba(255, 255, 255, 0.3)
+}
+
+@keyframes change {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.4);
+    }
+}
+
+.change {
+    animation-name: change;
+    animation-duration: 1s;
+    animation-direction: alternate;
+}
+
+#theme-svg {
+    fill: var(--game-color);
+    width: 40px;
+    height: 40px;
+}
